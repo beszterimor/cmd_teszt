@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>C Feladat Házirendek Kvíz</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 20px; }
+.question { margin-bottom: 20px; }
+.options label { display: block; }
+button { margin: 10px; padding: 10px; }
+#timer { font-weight: bold; color: red; }
+</style>
+<script>
+let timeLeft = 15 * 60;
+function startTimer() {
+    const timerElement = document.getElementById('timer');
+    const interval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerElement.textContent = `Hátralévő idő: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        timeLeft--;
+        if (timeLeft < 0) {
+            clearInterval(interval);
+            alert('Lejárt az idő! Az eredmény kiértékelésre kerül.');
+            checkAnswers();
+        }
+    }, 1000);
+}
+function checkAnswers() {
+    let score = 0;
+    const questions = document.querySelectorAll('.question');
+    questions.forEach(q => {
+        const correct = q.dataset.correct.split('|');
+        const selected = Array.from(q.querySelectorAll('input[type=checkbox]:checked')).map(i => i.value);
+        if (correct.length === selected.length && correct.every(c => selected.includes(c))) {
+            score++;
+        }
+    });
+    alert(`Eredményed: ${score} / ${questions.length}`);
+}
+function restartQuiz() {
+    location.reload();
+}
+window.onload = startTimer;
+</script>
+</head>
+<body>
+<h1>C Feladat Házirendek Kvíz</h1>
+<p>Válaszold meg a kérdéseket. Ahol (Több helyes válasz) szerepel, ott jelölj meg minden helyes opciót. A végén kattints az Eredmény ellenőrzése gombra.</p>
+<div id="timer"></div>
+<form id="quiz">
+<div class="question" data-correct="Felhasználói tulajdonságokban a 'Jelszó soha ne járjon le' opcióval|Csoportházirendben a 'Maximális jelszókor' értékét 0-ra állítva">
+<p>1. Hogyan állítható be, hogy a jelszó ne járjon le? (Több helyes válasz)</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói tulajdonságokban a 'Jelszó soha ne járjon le' opcióval"> Felhasználói tulajdonságokban a 'Jelszó soha ne járjon le' opcióval</label>
+<label><input type="checkbox" value="Csoportházirendben a 'Maximális jelszókor' értékét 0-ra állítva"> Csoportházirendben a 'Maximális jelszókor' értékét 0-ra állítva</label>
+<label><input type="checkbox" value="Felhasználói jogok kiosztása házirendben"> Felhasználói jogok kiosztása házirendben</label>
+<label><input type="checkbox" value="Nem lehetséges"> Nem lehetséges</label>
+</div>
+</div>
+<div class="question" data-correct="Szoftverkorlátozási házirend">
+<p>2. Melyik házirenddel lehet megakadályozni, hogy a felhasználók telepítsenek szoftvereket?</p>
+<div class="options">
+<label><input type="checkbox" value="Szoftverkorlátozási házirend"> Szoftverkorlátozási házirend</label>
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+<label><input type="checkbox" value="Hálózati házirend"> Hálózati házirend</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói konfiguráció -> Vezérlőpult -> Megjelenés">
+<p>3. Melyik házirenddel lehet beállítani a képernyővédő automatikus bekapcsolását?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói konfiguráció -> Vezérlőpult -> Megjelenés"> Felhasználói konfiguráció -> Vezérlőpult -> Megjelenés</label>
+<label><input type="checkbox" value="Biztonsági házirend"> Biztonsági házirend</label>
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Hálózati házirend"> Hálózati házirend</label>
+</div>
+</div>
+<div class="question" data-correct="Automatikus hálózati meghajtó csatolás">
+<p>4. Mi a célja a bejelentkezési szkripteknek?</p>
+<div class="options">
+<label><input type="checkbox" value="Automatikus hálózati meghajtó csatolás"> Automatikus hálózati meghajtó csatolás</label>
+<label><input type="checkbox" value="Felhasználói jelszó módosítása"> Felhasználói jelszó módosítása</label>
+<label><input type="checkbox" value="DNS rekord létrehozása"> DNS rekord létrehozása</label>
+<label><input type="checkbox" value="FTP szerver indítása"> FTP szerver indítása</label>
+</div>
+</div>
+<div class="question" data-correct="Jelszó komplexitás és érvényességi idő szabályozása">
+<p>5. Mi a jelszóházirend célja?</p>
+<div class="options">
+<label><input type="checkbox" value="Jelszó komplexitás és érvényességi idő szabályozása"> Jelszó komplexitás és érvényességi idő szabályozása</label>
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+<label><input type="checkbox" value="Hálózati címek kiosztása"> Hálózati címek kiosztása</label>
+<label><input type="checkbox" value="DNS rekordok létrehozása"> DNS rekordok létrehozása</label>
+</div>
+</div>
+<div class="question" data-correct="Fiókbeállítások házirendje">
+<p>6. Melyik házirenddel tiltható meg a felhasználóknak a jelszó megváltoztatása?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+<label><input type="checkbox" value="Fiókbeállítások házirendje"> Fiókbeállítások házirendje</label>
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Biztonsági beállítások"> Biztonsági beállítások</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói profilok központi tárolása">
+<p>7. Mi a célja a mappairányítás (Folder Redirection) házirendnek?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói profilok központi tárolása"> Felhasználói profilok központi tárolása</label>
+<label><input type="checkbox" value="Nyomtatók automatikus telepítése"> Nyomtatók automatikus telepítése</label>
+<label><input type="checkbox" value="DNS beállítások módosítása"> DNS beállítások módosítása</label>
+<label><input type="checkbox" value="IP cím kiosztása"> IP cím kiosztása</label>
+</div>
+</div>
+<div class="question" data-correct="Jelszóházirend">
+<p>8. Melyik házirenddel lehet beállítani a jelszó komplexitási követelményeket?</p>
+<div class="options">
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+<label><input type="checkbox" value="Biztonsági házirend"> Biztonsági házirend</label>
+<label><input type="checkbox" value="Hálózati házirend"> Hálózati házirend</label>
+</div>
+</div>
+<div class="question" data-correct="8 karakter">
+<p>9. Mi a jelszóházirend alapértelmezett minimális hossza Windows Server környezetben?</p>
+<div class="options">
+<label><input type="checkbox" value="6 karakter"> 6 karakter</label>
+<label><input type="checkbox" value="8 karakter"> 8 karakter</label>
+<label><input type="checkbox" value="10 karakter"> 10 karakter</label>
+<label><input type="checkbox" value="12 karakter"> 12 karakter</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói konfiguráció -> Felügyeleti sablonok -> Vezérlőpult">
+<p>10. Melyik házirenddel lehet beállítani, hogy a felhasználók ne férjenek hozzá a Vezérlőpulthoz?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói konfiguráció -> Felügyeleti sablonok -> Vezérlőpult"> Felhasználói konfiguráció -> Felügyeleti sablonok -> Vezérlőpult</label>
+<label><input type="checkbox" value="Biztonsági házirend"> Biztonsági házirend</label>
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Hálózati házirend"> Hálózati házirend</label>
+</div>
+</div>
+<div class="question" data-correct="Beállítások érvényesítése több szinten (tartomány, OU)">
+<p>11. Mi a célja a csoportházirendek öröklődésének?</p>
+<div class="options">
+<label><input type="checkbox" value="Beállítások érvényesítése több szinten (tartomány, OU)"> Beállítások érvényesítése több szinten (tartomány, OU)</label>
+<label><input type="checkbox" value="IP címek kiosztása"> IP címek kiosztása</label>
+<label><input type="checkbox" value="DNS zónák létrehozása"> DNS zónák létrehozása</label>
+<label><input type="checkbox" value="FTP szerver indítása"> FTP szerver indítása</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói jogok és hozzáférések szabályozása">
+<p>12. Mi a célja a biztonsági házirendeknek?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói jogok és hozzáférések szabályozása"> Felhasználói jogok és hozzáférések szabályozása</label>
+<label><input type="checkbox" value="IP cím kiosztása"> IP cím kiosztása</label>
+<label><input type="checkbox" value="DNS rekord létrehozása"> DNS rekord létrehozása</label>
+<label><input type="checkbox" value="FTP szerver konfigurálása"> FTP szerver konfigurálása</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói jogok kiosztása">
+<p>13. Melyik házirenddel lehet engedélyezni a távoli asztal kapcsolatot csak az ADMIN OU tagjai számára?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+<label><input type="checkbox" value="Távoli asztal házirend"> Távoli asztal házirend</label>
+<label><input type="checkbox" value="Biztonsági beállítások"> Biztonsági beállítások</label>
+<label><input type="checkbox" value="Hálózati házirend"> Hálózati házirend</label>
+</div>
+</div>
+<div class="question" data-correct="Csoportházirend bejelentkezési szkriptek">
+<p>14. Melyik házirenddel lehet beállítani a bejelentkezés utáni hálózati meghajtók (M:, P:) csatolását?</p>
+<div class="options">
+<label><input type="checkbox" value="Csoportházirend bejelentkezési szkriptek"> Csoportházirend bejelentkezési szkriptek</label>
+<label><input type="checkbox" value="Biztonsági házirend"> Biztonsági házirend</label>
+<label><input type="checkbox" value="Jelszóházirend"> Jelszóházirend</label>
+<label><input type="checkbox" value="Felhasználói jogok kiosztása"> Felhasználói jogok kiosztása</label>
+</div>
+</div>
+<div class="question" data-correct="Felhasználói és számítógép beállítások központi kezelése">
+<p>15. Mi a célja a csoportházirendeknek (GPO)?</p>
+<div class="options">
+<label><input type="checkbox" value="Felhasználói és számítógép beállítások központi kezelése"> Felhasználói és számítógép beállítások központi kezelése</label>
+<label><input type="checkbox" value="IP címek kiosztása"> IP címek kiosztása</label>
+<label><input type="checkbox" value="DNS zónák létrehozása"> DNS zónák létrehozása</label>
+<label><input type="checkbox" value="FTP szerver konfigurálása"> FTP szerver konfigurálása</label>
+</div>
+</div>
+
+<button type="button" onclick="checkAnswers()">Eredmény ellenőrzése</button>
+<button type="button" onclick="restartQuiz()">Újrakezdés</button>
+</form>
+</body>
+</html>
